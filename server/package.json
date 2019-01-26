@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "npm run-script build --prefix ../client",
+    "buildrun":"npm run-script build --prefix ../client && npm start",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix ../client",
