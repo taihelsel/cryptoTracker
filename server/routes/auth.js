@@ -19,8 +19,7 @@ router.post("/signup", (req, res) => {
         newUser.save(function (err, user) {
             if (err) res.status(400).send({ message: err });
             else {
-                delete user.password;
-                console.log(user);
+                user.password = undefined;
                 res.json(user);
             }
         });
