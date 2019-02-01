@@ -26,7 +26,7 @@ class SignUp extends Component {
         passwordConf:this.state.passwordConf,
       }),
     })
-    .then((res)=>res.json)
+    .then((res)=>res.json())
     .then((res)=>{
       console.log("signup success",res);
     })

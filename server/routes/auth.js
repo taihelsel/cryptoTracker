@@ -13,6 +13,18 @@ router.post("/signup", (req, res) => {
     const password = req.body.password;
     const passwordConf = req.body.passwordConf;
     console.log("username",username,"password",password,"passwordConf",passwordConf);
-    res.status(200).send();
+    if(password!==passwordConf) res.status(400).send({message:"Error passwords do not match"});
+    else {
+        let newUser = new User({username});
+        newUser.password = newUser.encryptPassword(password);
+        newUser.save(function(err,user){
+            if(err) res.status(400).send({ message:err});
+            else{
+                delete user.password;
+                console.log(user);
+                res.json(user);
+            }
+        });
+    }
 });
 module.exports = router;
