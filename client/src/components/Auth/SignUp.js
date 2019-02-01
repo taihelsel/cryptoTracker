@@ -5,11 +5,34 @@ class SignUp extends Component {
   state = {
     username: "",
     password: "",
-    password2: "",
+    passwordConf: "",
   }
   handleLoginSubmit = (e) => {
     e.preventDefault();
     //make api call to login here
+    fetch("/auth/signup",{
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache", 
+      credentials: "same-origin",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      redirect: "follow", 
+      referrer: "client", 
+      body: JSON.stringify({
+        username:this.state.username,
+        password:this.state.password,
+        passwordConf:this.state.passwordConf,
+      }),
+    })
+    .then((res)=>res.json)
+    .then((res)=>{
+      console.log("signup success",res);
+    })
+    .catch((err)=>{
+      console.error("error making signup request");
+    });
   }
   handleInputChange = (e) => {
     const val = e.target.value;
@@ -34,7 +57,7 @@ class SignUp extends Component {
           </div>
           <div className="form-data">
             <h3>Confirm Password</h3>
-            <input type="password" name="password2" value={this.state.password2} onChange={this.handleInputChange} />
+            <input type="password" name="passwordConf" value={this.state.passwordConf} onChange={this.handleInputChange} />
           </div>
           <div className="form-data">
             <input type="submit" />
