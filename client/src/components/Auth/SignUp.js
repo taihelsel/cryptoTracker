@@ -7,9 +7,9 @@ class SignUp extends Component {
     password: "",
     passwordConf: "",
   }
-  handleLoginSubmit = (e) => {
+  handleSignUpSubmit = (e) => {
     e.preventDefault();
-    //make api call to login here
+    //make api call to signup here
     fetch("/auth/signup",{
       method: "POST",
       mode: "cors",
@@ -46,7 +46,7 @@ class SignUp extends Component {
       <section id="SignUp">
         <h1>Sign Up Page</h1>
         <hr />
-        <form onSubmit={this.handleLoginSubmit}>
+        <form onSubmit={this.handleSignUpSubmit}>
           <div className="form-data">
             <h3>Username</h3>
             <input type="text" name="username" value={this.state.username} onChange={this.handleInputChange} />

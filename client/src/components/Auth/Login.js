@@ -9,6 +9,28 @@ class Login extends Component {
   handleLoginSubmit = (e) => {
     e.preventDefault();
     //make api call to login here
+    fetch("/auth/login", {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrer: "client",
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("login success", res);
+      })
+      .catch((err) => {
+        console.error("error making login request");
+      });
   }
   handleInputChange = (e) => {
     const val = e.target.value;
