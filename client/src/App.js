@@ -49,7 +49,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" render={() => <LandingPage isLoggedIn={this.state.isLoggedIn} />} />
+          <Route exact path="/" component={LandingPage} isLoggedIn={this.state.isLoggedIn}/>
           <Route exact path="/home" component={Home} />
           <Route exact path="/auth/login" component={Login} />
           <Route exact path="/auth/signup" component={SignUp} />

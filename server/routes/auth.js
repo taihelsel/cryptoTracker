@@ -29,14 +29,14 @@ router.post("/signup", (req, res) => {
             else {
                 const token = jwtHelpers.signToken({ username, password }, process.env.JWT_KEY);
                 user.password = undefined;
-                res.json({user,token});
+                res.json({ user, token });
             }
         });
     }
 });
-router.post("/validate",jwtHelpers.checkForToken,(req,res)=>{
+router.post("/validate", jwtHelpers.checkForToken, (req, res) => {
     const token = req.token;
-    let isValidToken = jwtHelpers.validateToken(token,process.env.JWT_KEY)?true:false;
-    res.json({isValidToken});
+    const isValidToken = jwtHelpers.validateToken(token, process.env.JWT_KEY) ? true : false;
+    res.json({ isValidToken });
 });
 module.exports = router;
