@@ -11,6 +11,7 @@ class App extends Component {
   state = {
     isLoggedIn: false,
     token:"",
+    username:"",
   }
   componentWillMount() {
     this.hasValidToken();
@@ -28,11 +29,14 @@ class App extends Component {
     })
       .then((res) => res.json())
       .then((res) => {
-        const newState = this.state;
-        if(newState.isLoggedIn===false||newState.token!==token){
-          newState.isLoggedIn = res.isValidToken;
-          newState.token = token;
-          this.setState({ newState });
+        const _state = this.state;
+        if(_state.isLoggedIn===false||_state.token!==token||res.username!==localStorage.getItem("username")){
+          //updating any incorrect data
+          _state.isLoggedIn = res.isValidToken;
+          _state.token = token;
+          localStorage.setItem("username",res.username);
+          _state.username = res.username;
+          this.setState({ _state });
         }
       })
       .catch((err) => {
@@ -46,11 +50,12 @@ class App extends Component {
     this.setState({ newState });
   }
   render() {
+    console.log("this.state",this.state);
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" component={LandingPage} isLoggedIn={this.state.isLoggedIn}/>
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/" render={() => <LandingPage isLoggedIn={this.state.isLoggedIn} />} />
+          <Route exact path="/home" render={() => <Home username={this.state.username} />}  />
           <Route exact path="/auth/login" component={Login} />
           <Route exact path="/auth/signup" component={SignUp} />
         </div>

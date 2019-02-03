@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 class LandingPage extends Component {
   state = {
-    name:"",
-    email:"",
-    body:"",
+    name: "",
+    email: "",
+    body: "",
   };
   handleInputChange = (e) => {
     const val = e.target.value;
@@ -15,22 +15,36 @@ class LandingPage extends Component {
     newState[id] = val;
     this.setState({ newState });
   }
-  render(){
+  renderNavLinks = () => {
+    return (this.props.isLoggedIn) ? (
+      <ul className="nav-links">
+        <li>
+          <Link to="/home">
+            <h3>Home</h3 >
+          </Link >
+        </li >
+
+      </ul>
+    ) : (
+        <ul className="nav-links">
+          <li>
+            <Link to="/auth/login">
+              <h3>Login</h3 >
+            </Link >
+          </li >
+          <li>
+            <Link to="/auth/signup">
+              <h3>Sign Up</h3>
+            </Link>
+          </li>
+        </ul>
+      )
+  }
+  render() {
     return (
       <div id="LandingPage">
         <nav className="landing-nav">
-          <ul className="nav-links">
-            <li>
-              <Link to="/auth/login">
-                <h3>Login</h3>
-              </Link>
-            </li>
-            <li>
-              <Link to="/auth/signup">
-                <h3>Sign Up</h3>
-              </Link>
-            </li>
-          </ul>
+          {this.renderNavLinks()}
         </nav>
         <section id="about">
           <div className="about-background">
@@ -84,7 +98,6 @@ class LandingPage extends Component {
           </form>
         </section>
         You are {this.props.isLoggedIn ? "logged in" : "not logged in"}'
-  
       </div>
     );
   }

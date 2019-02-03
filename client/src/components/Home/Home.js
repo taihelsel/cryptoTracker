@@ -4,7 +4,7 @@ import './Home.css';
 class Home extends Component {
   render() {
     return (
-      <div id="Home">Home</div>
+      <div id="Home">Hello {this.props.username}</div>
     );
   }
 }

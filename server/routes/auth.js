@@ -36,7 +36,10 @@ router.post("/signup", (req, res) => {
 });
 router.post("/validate", jwtHelpers.checkForToken, (req, res) => {
     const token = req.token;
-    const isValidToken = jwtHelpers.validateToken(token, process.env.JWT_KEY) ? true : false;
-    res.json({ isValidToken });
+    const unencrypted = jwtHelpers.validateToken(token, process.env.JWT_KEY);
+    if (unencrypted !== false) {
+        unencrypted.password = undefined;
+        res.json({ isValidToken: true, username: unencrypted.username });
+    } else res.json({ isValidToken: false });
 });
 module.exports = router;
