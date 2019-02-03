@@ -14,7 +14,7 @@ exports.checkForToken = function (req, res, next) {
     }
 }
 exports.validateToken = function (token, key) {
-    return jwt.verify(token, key);
+    return jwt.verify(token, key,(err,Auth)=>err?false:Auth);
 }
 exports.signToken = function (params, key) {
     return jwt.sign(params, key);
