@@ -10,6 +10,7 @@ import SignUp from "./components/Auth/SignUp.js";
 class App extends Component {
   state = {
     isLoggedIn: false,
+    token:"",
   }
   componentWillMount() {
     this.hasValidToken();
@@ -28,8 +29,11 @@ class App extends Component {
       .then((res) => res.json())
       .then((res) => {
         const newState = this.state;
-        newState.isLoggedIn = res.isValidToken;
-        this.setState({ newState });
+        if(newState.isLoggedIn===false||newState.token!==token){
+          newState.isLoggedIn = res.isValidToken;
+          newState.token = token;
+          this.setState({ newState });
+        }
       })
       .catch((err) => {
         console.error("Error validating token");
@@ -45,7 +49,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" render={()=><LandingPage isLoggedIn={this.state.isLoggedIn}/>} />
+          <Route exact path="/" render={() => <LandingPage isLoggedIn={this.state.isLoggedIn} />} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/auth/login" component={Login} />
           <Route exact path="/auth/signup" component={SignUp} />

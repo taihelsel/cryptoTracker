@@ -27,8 +27,9 @@ router.post("/signup", (req, res) => {
         authHelpers.createUser(username, password, function (err, user) {
             if (err) res.status(400).send({ message: err });
             else {
+                const token = jwtHelpers.signToken({ username, password }, process.env.JWT_KEY);
                 user.password = undefined;
-                res.json(user);
+                res.json({user,token});
             }
         });
     }

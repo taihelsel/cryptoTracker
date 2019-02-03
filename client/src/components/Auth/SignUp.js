@@ -28,7 +28,7 @@ class SignUp extends Component {
     })
     .then((res)=>res.json())
     .then((res)=>{
-      console.log("signup success",res);
+      localStorage.setItem("token",res.token);
     })
     .catch((err)=>{
       console.error("error making signup request");
