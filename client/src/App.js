@@ -8,13 +8,46 @@ import Home from "./components/Home/Home.js";
 import Login from "./components/Auth/Login.js";
 import SignUp from "./components/Auth/SignUp.js";
 class App extends Component {
+  state = {
+    isLoggedIn: false,
+  }
+  componentWillMount() {
+    this.hasValidToken();
+  }
+  hasValidToken = () => {
+    const token = localStorage.getItem("token");
+    if (token === null || token.length < 10) return false
+    return fetch("/auth/validate", {
+      method: "POST",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        const newState = this.state;
+        newState.isLoggedIn = res.isValidToken;
+        this.setState({ newState });
+      })
+      .catch((err) => {
+        console.error("Error validating token");
+      });
+  }
+  logoutUser = () => {
+    localStorage.removeItem("token");
+    const newState = this.state;
+    newState.isLoggedIn = false;
+    this.setState({ newState });
+  }
   render() {
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" component={LandingPage} isLoggedIn={false}/>
+          <Route exact path="/" render={()=><LandingPage isLoggedIn={this.state.isLoggedIn}/>} />
           <Route exact path="/home" component={Home} />
-          <Route exact path="/auth/login" component={Login}/>
+          <Route exact path="/auth/login" component={Login} />
           <Route exact path="/auth/signup" component={SignUp} />
         </div>
       </Router>
