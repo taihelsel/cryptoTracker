@@ -11,9 +11,9 @@ class LandingPage extends Component {
   handleInputChange = (e) => {
     const val = e.target.value;
     const id = e.target.name;
-    const newState = this.state;
-    newState[id] = val;
-    this.setState({ newState });
+    const _state = this.state;
+    _state[id] = val;
+    this.setState({ _state });
   }
   renderNavLinks = () => {
     return (this.props.isLoggedIn) ? (
