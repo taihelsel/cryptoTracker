@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import './Home.css';
 
+//Components
+import UserNav from ".././UserNav/UserNav.js";
 class Home extends Component {
   render() {
     return (
-      <div id="Home">Hello {this.props.username}</div>
+      <section id="Home">
+        <UserNav logoutUser={this.props.logoutUser} />
+      </section>
     );
   }
 }
