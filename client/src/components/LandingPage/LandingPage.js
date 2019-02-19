@@ -97,7 +97,6 @@ class LandingPage extends Component {
             </div>
           </form>
         </section>
-        You are {this.props.isLoggedIn ? "logged in" : "not logged in"}'
       </div>
     );
   }

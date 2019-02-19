@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 /*Components*/
+import LoadingWheel from "./components/LoadingWeel/LoadingWheel.js";
 import ProtectedRoute from "./components/RouteProtection/ProtectedRoute.js";
 import LandingPage from "./components/LandingPage/LandingPage.js";
 import Home from "./components/Home/Home.js";
@@ -13,7 +14,7 @@ class App extends Component {
     isLoggedIn: false,
     token: "",
     username: "",
-    tokenChecked: false,
+    tokenChecked: false, //set to true when testing without server
   }
   componentWillMount() {
     this.hasValidToken();
@@ -67,7 +68,7 @@ class App extends Component {
         </div>
       </Router>
     ) : (
-        <div>show loading wheel here</div>
+        <LoadingWheel />
       );
   }
 }
